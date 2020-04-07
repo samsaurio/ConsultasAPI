@@ -110,7 +110,7 @@ app.get("/api/cantidad_articulos_por_autor/:nombre", (req, res, next) => {
 });
 
 
-/*  Consulta 5*/
+/*  Consulta 6*/
 /*  total de autores por pais especifico*/
 /*  ejemplo: http://localhost:8000/api/autores_por_pais/Argentina  */
 app.get("/api/autores_por_pais/:pais", (req, res, next) => {
@@ -130,11 +130,11 @@ app.get("/api/autores_por_pais/:pais", (req, res, next) => {
 });
 
 
-/*  Consulta 6*/
+/*  Consulta 7*/
 /*  Cantidad de articulos en un rango de fecha*/
 /*  ejemplo : http://localhost:8000/api/intervalo_fecha/2020-03-27/2020-03-30 */
 app.get("/api/intervalo_fecha/:date1/:date2", (req, res, next) => {
-    var sql = "select COUNT(*) as cantidad_articulos from articles a JOIN authors au where DATE(added) BETWEEN ? AND ? AND a.author_id = au.id AND au.gender = 'F'"
+    var sql = "select count(case when gender='F' then 1 end) AS cantidad_articulos_mujeres, count(case when gender='M' then 1 end) AS cantidad_articulos_hombres from articles a JOIN authors au where DATE(added) BETWEEN ? AND ? AND a.author_id = au.id"
     var params = [req.params.date1, req.params.date2]
     db.all(sql, params, (err, rows) => {
         if (err) {
@@ -148,7 +148,7 @@ app.get("/api/intervalo_fecha/:date1/:date2", (req, res, next) => {
       });
 });
 
-/*  Consulta 7*/
+/*  Consulta 8*/
 /*  cantidad de mujeres y hombres en una fecha especifica*/
 /*  ejemplo: http://localhost:8000/api/fecha/2020-03-27/  */
 app.get("/api/fecha/:date", (req, res, next) => {
@@ -166,7 +166,7 @@ app.get("/api/fecha/:date", (req, res, next) => {
       });
 });
 
-/*  Consulta 8*/
+/*  Consulta 9*/
 /*  cantidad de articulos en un rango de fecha segun pais*/
 /*  ejemplo: http://localhost:8000/api/intervalo_fecha/2020-03-27/2020-03-30/Argentina */
 app.get("/api/intervalo_fecha/:date1/:date2/:country", (req, res, next) => {
@@ -184,7 +184,7 @@ app.get("/api/intervalo_fecha/:date1/:date2/:country", (req, res, next) => {
       });
 });
 
-/*  Consulta 9 */
+/*  Consulta 10 */
 /*  Tabla completa de articles y authors */
 /* ejemplo : http://localhost:8000/ */
 app.get("/", (req, res, next) => {
