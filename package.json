@@ -2,7 +2,7 @@
   "name": "prueba",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
     "md5": "^2.2.1",
