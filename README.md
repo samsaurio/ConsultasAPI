@@ -1,7 +1,7 @@
 # ConsultasAPI
 
 ## Instalacion
-
+Debe tener instalado nodejs version 10.15.2 o superior.  
 * npm install express
 * npm install sqlite3
 * npm install md5
