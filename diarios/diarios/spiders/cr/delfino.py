@@ -7,29 +7,28 @@ from diarios.items import DiariosItem
 
 class DelfinoSpider(scrapy.Spider):
     name = 'delfino'
+    country='costa rica'
     allowed_domains = ['delfino.cr']
-    start_urls = ['https://delfino.cr/columnas/']
+    start_urls = ['https://delfino.cr/columnas']
 
     def parse(self, response):
         """
-        @url https://delfino.cr/columnas/
+        @url https://delfino.cr/columnas
         @returns items 1 18
         @returns requests 0 0
         @scrapes author title url
         """
-        selectors = response.xpath('//div[@class="css-kmcioo"]')
-        print("bbbbbbbbbbbbbbbbbbb")
-        print(selectors)
+        selectors = response.xpath('//div[@class="col-3 css-1cvc9xn"]')
+    
         for selector in selectors:
-            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            print(selector);
             yield self.parse_article(selector, response)
 
     def parse_article(self, selector, response):
         loader = ItemLoader(DiariosItem(), selector=selector)
 
-        loader.add_xpath('title', './a[not(@class)]/h3/text()')
-        loader.add_xpath('author', './a[@class="author-name"]/text()')
-        loader.add_xpath('url', './a[not(@class)]/@href')
+        loader.add_xpath('title', './/a/p/text()')
+        loader.add_xpath('author', './/h6/text()')
+        loader.add_xpath('url', './/a/@href')
+
 
         return loader.load_item()

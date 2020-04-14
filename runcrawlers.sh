@@ -12,7 +12,7 @@ scrapy crawl perfil
 #cr
 scrapy crawl nacion
 scrapy crawl crhoy
-#scrapy crawl delfino
+scrapy crawl delfino
 scrapy crawl larepublica
 #paraguay
 scrapy crawl lanacionpy

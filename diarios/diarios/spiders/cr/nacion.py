@@ -22,11 +22,8 @@ class NacionSpider(scrapy.Spider):
         @scrapes author title url
         """
         selectors = response.xpath('//div[@class="generic-results-list-item"]')
-        print("bbbbbbbbbbbbbbbbbbb")
-        print(selectors)
+
         for selector in selectors:
-            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            print(selector);
             yield self.parse_article(selector, response)
 
     def parse_article(self, selector, response):
