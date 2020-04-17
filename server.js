@@ -14,7 +14,7 @@ app.listen(HTTP_PORT, () => {
 /*  Total de articulos existentes en la base de datos contemplando el pais indicado en el url*/
 /*  ejemplo: /api/articulos/Paraguay */
 app.get("/api/articulos/:country_name", (req, res, next) => {
-    var sql = "select title,url,author,site,country,added,last_seen from articles a join authors aut where a.author_id = aut.id and a.country = ?;"
+    var sql = "select a.title, a.url, aut.author, aut.gender, a.site, a.country, a.added, a.last_seen from articles a join authors aut where a.author_id = aut.id and a.country = ?;"
     var params = [req.params.country_name]
     db.all(sql, params, (err, rows) => {
         if (err) {
@@ -188,7 +188,7 @@ app.get("/api/intervalo_fecha/:date1/:date2/:country", (req, res, next) => {
 /*  Tabla completa de articles y authors */
 /* ejemplo : http://localhost:8000/ */
 app.get("/", (req, res, next) => {
-  var sql = "select title,url,author,site,country,added,last_seen from articles a join authors aut where a.author_id = aut.id;"
+  var sql = "select title,url,author,site,country,added,last_seen from articles a join authors aut where a.author_id = aut.id AND date(added) = date('now');"
   var params = []
   db.all(sql, params, (err, rows) => {
 
@@ -205,6 +205,59 @@ app.get("/", (req, res, next) => {
     });
 });
 
+/*  Consulta 11*/
+/*  cantidad de mujeres y hombres en una fecha especifica por pais*/
+/*  ejemplo: http://localhost:8000/api/fecha/2020-03-27/  */
+app.get("/api/fecha/:date/:country", (req, res, next) => {
+    var sql = "SELECT count(case when gender='F' then 1 end) AS cantidad_articulos_mujeres, count(case when gender='M' then 1 end) AS cantidad_articulos_hombres FROM articles a JOIN authors au ON a.author_id = au.id  where DATE(a.added) = ? AND a.country = ?"
+    var params = [req.params.date, req.params.country]
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
+/*  Consulta 12*/
+/*  cantidad de mujeres y hombres en el dia de hoy*/
+/*  ejemplo: http://localhost:8000/api/fecha_actual  */
+app.get("/api/fecha_actual", (req, res, next) => {
+    var sql = "SELECT count(case when gender='F' then 1 end) AS cantidad_articulos_mujeres, count(case when gender='M' then 1 end) AS cantidad_articulos_hombres FROM articles a JOIN authors au ON a.author_id = au.id  where DATE(a.added) = date('now');"
+    var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
+/*  Consulta 13*/
+/*  cantidad de mujeres y hombres en el dia de hoy*/
+/*  ejemplo: http://localhost:8000/api/fecha_actual  */
+app.get("/api/fecha_actual/:country", (req, res, next) => {
+    var sql = "SELECT count(case when gender='F' then 1 end) AS cantidad_articulos_mujeres, count(case when gender='M' then 1 end) AS cantidad_articulos_hombres FROM articles a JOIN authors au ON a.author_id = au.id  where DATE(a.added) = date('now') AND a.country = ?;"
+    var params = [req.params.country]
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
 
 
 // Default response for any other request
