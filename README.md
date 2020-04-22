@@ -1,3 +1,4 @@
+# **Manual de usuario**
 ## **Consultas que realiza el API**
 
 - Información de todos los artículos publicados el día actual.  
@@ -16,13 +17,13 @@
   ``` https://apicolumnistos.tedic.net/api/historico/genero ```
 
 - Todos los artículos de un autor especificado en el url  
-Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20
+Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20.
 Ejemplo: Antonio%20Suarez  
 
   ``` https://apicolumnistos.tedic.net/api/articulos_por_autor/{nombre del autor} ```
 
 - Número de artículos por autor  
-Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20
+Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20.
 Ejemplo: Antonio%20Suarez  
 
   ``` https://apicolumnistos.tedic.net/api/cantidad_articulos_por_autor/{nombre del autor} ```
