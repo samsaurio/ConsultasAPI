@@ -21,7 +21,7 @@ Ejemplo: Antonio%20Suarez
 
   ``` https://apicolumnistos.tedic.net/api/articulos_por_autor/{nombre del autor} ```
 
-- Número de artículos por autor
+- Número de artículos por autor  
 Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20
 Ejemplo: Antonio%20Suarez  
 
@@ -30,12 +30,12 @@ Ejemplo: Antonio%20Suarez
 - Total de autores registrados en la base  
   ``` https://apicolumnistos.tedic.net/api/autores ```
 
-- Cantidad de artículos publicados por hombres y mujeres en un rango de fechas
+- Cantidad de artículos publicados por hombres y mujeres en un rango de fechas  
 Nota: Las fechas deben estar en formato AAAA-MM-DD. Ej: 23-05-2019  
 
   ``` https://apicolumnistos.tedic.net/api/intervalo_fecha/{fecha1}/{fecha2}  ```
 
-- Cantidad de artículos hechos por mujeres y hombres en una fecha específica
+- Cantidad de artículos hechos por mujeres y hombres en una fecha específica  
 Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019  
 ``` https://apicolumnistos.tedic.net/api/fecha/{fecha}  ```
 
