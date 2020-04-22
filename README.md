@@ -21,10 +21,8 @@ Ejemplo: Antonio%20Suarez
 
   ``` https://apicolumnistos.tedic.net/api/articulos_por_autor/{nombre del autor} ```
 
-- Número de artículos por autor  
-
-Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20  
-
+- Número de artículos por autor
+Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20
 Ejemplo: Antonio%20Suarez  
 
   ``` https://apicolumnistos.tedic.net/api/cantidad_articulos_por_autor/{nombre del autor} ```
@@ -32,16 +30,13 @@ Ejemplo: Antonio%20Suarez
 - Total de autores registrados en la base  
   ``` https://apicolumnistos.tedic.net/api/autores ```
 
-- Cantidad de artículos publicados por hombres y mujeres en un rango de fechas  
-
+- Cantidad de artículos publicados por hombres y mujeres en un rango de fechas
 Nota: Las fechas deben estar en formato AAAA-MM-DD. Ej: 23-05-2019  
 
   ``` https://apicolumnistos.tedic.net/api/intervalo_fecha/{fecha1}/{fecha2}  ```
 
-- Cantidad de artículos hechos por mujeres y hombres en una fecha específica  
-
+- Cantidad de artículos hechos por mujeres y hombres en una fecha específica
 Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019  
-
 ``` https://apicolumnistos.tedic.net/api/fecha/{fecha}  ```
 
 - Cantidad de mujeres y hombres en el dia de hoy  
@@ -73,7 +68,7 @@ Debe tener instalado nodejs version 10.15.2 o superior.
 
 Renombre su base de datos a &quot;diarios.sqlite&quot; o bien en el documento de database.js coloque la ubicación de su base de datos en el siguiente espacio:  
 
-``` let db = new sqlite3.Database(&#39;\&lt;ubicación de la base de datos\&gt;&#39;, (err) =\&gt; { ```
+``` let db = new sqlite3.Database('<ubicación de la base de datos>', (err) => { ```
 
 Las bases de datos debe seguir la siguiente estructura:
 
