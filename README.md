@@ -1,27 +1,25 @@
 ## **Consultas que realiza el API**
 
 - Información de todos los artículos publicados el día actual.
-  - https://apicolumnistos.tedic.net/
+  <code> https://apicolumnistos.tedic.net/ </code>
 
 - Total de artículos existentes en la base de datos:
-  - https://apicolumnistos.tedic.net/api/articulos
+  <code> https://apicolumnistos.tedic.net/api/articulos </code>
 
 - Total por periodo de hombres y mujeres
-  - https://apicolumnistos.tedic.net/api/periodicos
+  <code> https://apicolumnistos.tedic.net/api/periodicos </code>
 
 - Todos los artículos de un periódico especificado en el url
-  - https://apicolumnistos.tedic.net/api/periodico/{nombre del periódico}
+  <code> https://apicolumnistos.tedic.net/api/periodico/{nombre del periódico} </code>
 
 - Cuenta del total de cada género desde la primera fecha hasta la fecha actual
-  - https://apicolumnistos.tedic.net/api/historico\_genero
+  <code> https://apicolumnistos.tedic.net/api/historico/genero
 
 - Todos los artículos de un autor especificado en el url
-
 Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20
-
 Ejemplo: Antonio%20Suarez
 
-  - https://apicolumnistos.tedic.net/api/articulos\_por\_autor/{nombre del autor}
+  <code> https://apicolumnistos.tedic.net/api/articulos_por_autor/{nombre del autor}  </code>
 
 - Número de artículos por autor
 
@@ -29,28 +27,28 @@ Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: 
 
 Ejemplo: Antonio%20Suarez
 
-  - [https://apicolumnistos.tedic.net/](https://apicolumnistos.tedic.net/api/articulos_por_autor/%7Bnombre)api/cantidad\_articulos\_por\_autor/{nombre del autor}
+  <code> https://apicolumnistos.tedic.net/api/cantidad_articulos_por_autor/{nombre del autor}  </code>
 
 - Total de autores registrados en la base
-  - [https://apicolumnistos.tedic.net/](https://apicolumnistos.tedic.net/api/articulos_por_autor/%7Bnombre)api/autores
+  <code> https://apicolumnistos.tedic.net/api/autores  </code>
 
 - Cantidad de artículos publicados por hombres y mujeres en un rango de fechas
 
 Nota: Las fechas deben estar en formato AAAA-MM-DD. Ej: 23-05-2019
 
-  - [https://apicolumnistos.tedic.net/](https://apicolumnistos.tedic.net/api/articulos_por_autor/%7Bnombre)api/intervalo\_fecha/{fecha1}/{fecha2}
+  <code> https://apicolumnistos.tedic.net/api/intervalo_fecha/{fecha1}/{fecha2}  </code>
 
 - Cantidad de artículos hechos por mujeres y hombres en una fecha específica
 
 Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019
 
-  - [https://apicolumnistos.tedic.net/](https://apicolumnistos.tedic.net/api/articulos_por_autor/%7Bnombre)api/fecha/{fecha}
+ <code>  https://apicolumnistos.tedic.net/api/fecha/{fecha}  </code>
 
 - Cantidad de mujeres y hombres en el dia de ho_y_
-  - [https://apicolumnistos.tedic.net/](https://apicolumnistos.tedic.net/api/articulos_por_autor/%7Bnombre)api/fecha\_actual
+  <code> https://apicolumnistos.tedic.net/api/fecha_actual  </code>
 
 - Cantidad de mujeres y hombres anuales
-  - [https://apicolumnistos.tedic.net/](https://apicolumnistos.tedic.net/api/articulos_por_autor/%7Bnombre)api/record\_anual
+  <code> https://apicolumnistos.tedic.net/api/record_anual  </code>
 
 ## **Para replicar el API**
 
