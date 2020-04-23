@@ -14,7 +14,7 @@
   ``` https://apicolumnistos.tedic.net/api/periodico/{nombre del periódico} ```
 
 - Cuenta del total de cada género desde la primera fecha hasta la fecha actual  
-  ``` https://apicolumnistos.tedic.net/api/historico/genero ```
+  ``` https://apicolumnistos.tedic.net/api/historico_genero ```
 
 - Todos los artículos de un autor especificado en el url  
 Nota: Los espacios del nombre de autor deben ser reemplazados por lo siguiente: %20.
