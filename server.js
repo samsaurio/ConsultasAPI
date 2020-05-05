@@ -1,9 +1,11 @@
 var express = require("express");
 var app = express();
-var db = require("./database.js")
+var db = require("./database.js");
+var cors = require('cors');
 // Server port
 var HTTP_PORT = 8000
 // Start server
+app.use(cors());
 app.listen(HTTP_PORT, () => {
     console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
 });
