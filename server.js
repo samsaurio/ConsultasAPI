@@ -257,8 +257,8 @@ app.get("/api/record_anual", (req, res, next) => {
 
 
 /*  Consulta 13*/
-/*  numero de articulos por autor*/
-/*  ejemplo: localhost:8000/api/cantidad_articulos_por_autor/Augusto Dos Santos */
+/*  cantidad de articulos totales*/
+/*  ejemplo: localhost:8000/api/cantidad_articulos */
 app.get("/api/cantidad_articulos", (req, res, next) => {
     var sql= " SELECT COUNT(*) as cantidad_articulos from articles ; "
 
@@ -277,8 +277,8 @@ app.get("/api/cantidad_articulos", (req, res, next) => {
 });
 
 /*  Consulta 14*/
-/*  numero de articulos por autor*/
-/*  ejemplo: localhost:8000/api/cantidad_articulos_por_autor/Augusto Dos Santos */
+/*  meses de observacion*/
+/*  ejemplo: localhost:8000/api/cantidad_meses */
 app.get("/api/cantidad_meses", (req, res, next) => {
     var sql= "Select Cast ((JulianDay(DATE('now')) - JulianDay(DATE(MIN(added))))/30 As Integer)as Meses from Articles;"
 
@@ -300,8 +300,8 @@ app.get("/api/cantidad_meses", (req, res, next) => {
 
 
 /*  Consulta 15*/
-/*  numero de articulos por autor*/
-/*  ejemplo: localhost:8000/api/cantidad_articulos_por_autor/Augusto Dos Santos */
+/*  cantidad de sitios de periodicos*/
+/*  ejemplo: localhost:8000/api/cantidad_medios */
 app.get("/api/cantidad_medios", (req, res, next) => {
     var sql= "select count(distinct site) as medios from articles;"
 
@@ -380,9 +380,9 @@ app.get("/api/distribucion_semana_periodico", (req, res, next) => {
 
 
 /*  Consulta 19*/
-/*  porcentaje de mujeres por semanar*/
-/*  ejemplo: localhost:8000/api/distribucion_semana_mujeres */
-app.get("/api/distribucion_semana_mujeres", (req, res, next) => {
+/*  porcentaje de mujeres por semana en un anio*/
+/*  ejemplo: localhost:8000/api/distribucion_semana_anio */
+app.get("/api/distribucion_semana_anio", (req, res, next) => {
     var sql= " SELECT distinct((strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1) as semana,( count(case when gender='F'  and (strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1 then 1 end )*1.0/ count( (strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1  )*1.0)*100 as porcentaje FROM articles a JOIN authors au ON a.author_id = au.id  group by semana ;"
 
     var params = []
@@ -422,7 +422,7 @@ app.get("/api/distribucion_mes", (req, res, next) => {
 });
 
 
-/*  Consulta --*/
+/*  Consulta 21*/
 /*  Cantidad total de autores que han publicado*/
 /*  ejemplo: http://localhost:8000/api/total_autores */
 app.get("/api/total_autores", (req, res, next) => {
