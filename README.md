@@ -47,32 +47,32 @@ Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019
   ``` https://apicolumnistos.tedic.net/api/record_anual  ```
   
   
-- Cantidad de articulos total 
+- Cantidad de articulos total  
   ``` https://apicolumnistos.tedic.net/api/cantidad_articulos  ```
   
   
-- Cantidad de meses recolectados
+- Cantidad de meses recolectados  
   ``` https://apicolumnistos.tedic.net/api/cantidad_meses  ```
   
-- Cantidad de medios que se toman en cuenta
+- Cantidad de medios que se toman en cuenta  
   ``` https://apicolumnistos.tedic.net/api/cantidad_medios  ```
   
-- Cantidad de dias sin articulos por mujeres
+- Cantidad de dias sin articulos por mujeres  
   ``` https://apicolumnistos.tedic.net/api/dias_sin_mujeres  ```
   
-- Porcentaje de distribución por semana
+- Porcentaje de distribución por semana  
   ``` https://apicolumnistos.tedic.net/api/distribucion_semana    ```
   
-- Porcentaje de distribución por semana categorizado por medio
+- Porcentaje de distribución por semana categorizado por medio  
   ``` https://apicolumnistos.tedic.net/api/distribucion_semana_periodico     ```
   
-- Porcentaje de distribución por semana por año
+- Porcentaje de distribución por semana por año  
   ``` https://apicolumnistos.tedic.net/api/distribucion_semana_anio     ```
   
-- Porcentaje de distribución por mes
+- Porcentaje de distribución por mes  
   ``` https://apicolumnistos.tedic.net/api/distribucion_mes      ```
       
-- Total de autores en la base
+- Total de autores en la base  
   ``` https://apicolumnistos.tedic.net/api/total_autores       ```
 
 ## **Para replicar el API**
