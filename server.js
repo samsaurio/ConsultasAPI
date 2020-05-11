@@ -338,13 +338,13 @@ app.get("/api/dias_sin_mujeres", (req, res, next) => {
       });
 });
 
-
 /*  Consulta 17 */
-/*  distribucion por semana*/
-/*  ejemplo: http://localhost:8000/api/distribucion_semana  */
-app.get("/api/distribucion_semana", (req, res, next) => {
-    var sql = "select distinct(a.dia),(a.numero*1.0 /b.num*1.0)*100 as numero from ( select distinct(dia), count(dia) as numero from (select case cast (strftime('%w', DATE(added)) as integer) when 0 then 'Domingo' when 1 then 'Lunes' when 2 then 'Martes' when 3 then 'Miercoles'  when 4 then 'Jueves' when 5 then 'Viernes' else 'Sabado' end as dia from Articles inner join authors on authors.id=articles.author_id where authors.gender= 'F'  ) group by dia) as a inner join (select distinct(dia), count(dia) as num from (select   case cast (strftime('%w', DATE(added)) as integer) when 0 then 'Domingo' when 1 then 'Lunes' when 2 then 'Martes' when 3 then 'Miercoles' when 4 then 'Jueves' when 5 then 'Viernes' else 'Sabado' end as dia from Articles inner join authors  on authors.id = articles.author_id ) group by dia) as b on a.dia=b.dia group by a.dia;"
-    var params = []
+/*  distribucion por semana en un rango*/
+/*  ejemplo: http://localhost:8000/api/distribucion_semana_rango/2020-03-27/2020-03-30  */
+
+app.get("/api/distribucion_semana_rango/:date1/:date2", (req, res, next) => {
+    var sql = "select distinct(a.dia),(a.numero*1.0 /b.num*1.0)*100 as numero from ( select distinct(dia), count(dia) as numero from (select case cast (strftime('%w', DATE(added)) as integer) when 0 then 'Domingo' when 1 then 'Lunes' when 2 then 'Martes' when 3 then 'Miercoles'  when 4 then 'Jueves' when 5 then 'Viernes' else 'Sabado' end as dia from Articles inner join authors on authors.id=articles.author_id where authors.gender= 'F' and  date(articles.added) BETWEEN ? and ? ) group by dia) as a inner join (select distinct(dia), count(dia) as num from (select   case cast (strftime('%w', DATE(added)) as integer) when 0 then 'Domingo' when 1 then 'Lunes' when 2 then 'Martes' when 3 then 'Miercoles' when 4 then 'Jueves' when 5 then 'Viernes' else 'Sabado' end as dia from Articles inner join authors  on authors.id = articles.author_id and date(articles.added) BETWEEN ? and ?) group by dia) as b on a.dia=b.dia group by a.dia;"
+    var params = [req.params.date1, req.params.date2,req.params.date1, req.params.date2]
     db.all(sql, params, (err, rows) => {
         if (err) {
           res.status(400).json({"error":err.message});
@@ -358,14 +358,15 @@ app.get("/api/distribucion_semana", (req, res, next) => {
 });
 
 /*  Consulta 18 */
-/*  porcentaje por de mujeres por semana en diferentes periodicos*/
-/*  ejemplo: http://localhost:8000/api/distribucion_semana_periodico */
-app.get("/api/distribucion_semana_periodico", (req, res, next) => {
-    var sql = "select site, count (case when cast(strftime('%w', DATE(added))as INTEGER)=1 and authors.gender='F' then'1' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=1  then'0' end)*1.0*100 as Lunes, count (case when cast(strftime('%w', DATE(added))as INTEGER)=2 and authors.gender='F' then'2' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=2  then'2' end)*1.0*100  as Martes,count (case when cast(strftime('%w', DATE(added))as INTEGER)=3 and authors.gender='F' then'3' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=3  then'3' end)*1.0*100  as Miercoles,count (case when cast(strftime('%w', DATE(added))as INTEGER)=4 and authors.gender='F' then'4' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=4  then'4' end)*1.0*100  as Jueves,count (case when cast(strftime('%w', DATE(added))as INTEGER)=5 and authors.gender='F' then'5' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=5  then'5' end)*1.0*100  as Viernes,count (case when cast(strftime('%w', DATE(added))as INTEGER)=6 and authors.gender='F' then'6' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=6  then'6' end)*1.0*100  as Sabado,count (case when cast(strftime('%w', DATE(added))as INTEGER)=0 and authors.gender='F' then'0' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=0  then'0' end)*1.0*100  as Domingo from Articles inner join authors on authors.id=articles.author_id group by site;"
+/*  porcentaje por de mujeres por semana en diferentes periodicos en un rango de fechas*/
+/*  ejemplo: http://localhost:8000/api/distribucion_semana_periodico_rango/'2019-05-23'/'2020-05-23' */
+app.get("/api/distribucion_semana_periodico_rango/:date1/:date2", (req, res, next) => {
+    var sql = "select site, count (case when cast(strftime('%w', DATE(added))as INTEGER)=1 and authors.gender='F' then'1' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=1  then'0' end)*1.0*100 as Lunes, count (case when cast(strftime('%w', DATE(added))as INTEGER)=2 and authors.gender='F' then'2' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=2  then'2' end)*1.0*100  as Martes,count (case when cast(strftime('%w', DATE(added))as INTEGER)=3 and authors.gender='F' then'3' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=3  then'3' end)*1.0*100  as Miercoles,count (case when cast(strftime('%w', DATE(added))as INTEGER)=4 and authors.gender='F' then'4' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=4  then'4' end)*1.0*100  as Jueves,count (case when cast(strftime('%w', DATE(added))as INTEGER)=5 and authors.gender='F' then'5' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=5  then'5' end)*1.0*100  as Viernes,count (case when cast(strftime('%w', DATE(added))as INTEGER)=6 and authors.gender='F' then'6' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=6  then'6' end)*1.0*100  as Sabado,count (case when cast(strftime('%w', DATE(added))as INTEGER)=0 and authors.gender='F' then'0' end)*1.0/count (case when cast(strftime('%w', DATE(added))as)=0  then'0' end)*1.0*100  as Domingo from Articles inner join authors on authors.id=articles.author_id WHERE date(articles.added) BETWEEN ? and ? group by site;"
 
-    var params = []
+    var params = [req.params.date1, req.params.date2]
     db.all(sql, params, (err, rows) => {
         if (err) {
+
           res.status(400).json({"error":err.message});
           return;
         }
@@ -377,15 +378,13 @@ app.get("/api/distribucion_semana_periodico", (req, res, next) => {
 });
 
 
-
-
 /*  Consulta 19*/
 /*  porcentaje de mujeres por semana en un anio*/
-/*  ejemplo: localhost:8000/api/distribucion_semana_anio */
-app.get("/api/distribucion_semana_anio", (req, res, next) => {
-    var sql= " SELECT distinct((strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1) as semana,( count(case when gender='F'  and (strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1 then 1 end )*1.0/ count( (strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1  )*1.0)*100 as porcentaje FROM articles a JOIN authors au ON a.author_id = au.id  group by semana ;"
+/*  ejemplo: localhost:8000/api/distribucion_semana_anio/2019 */
+app.get("/api/distribucion_semana_anio/:date1", (req, res, next) => {
+    var sql= "SELECT distinct((strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1) as semana,( count(case when gender='F'  and (strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1 then 1 end )*1.0/ count( (strftime('%j', date(DATE(added), '-3 days', 'weekday 4')) - 1) / 7 + 1  )*1.0)*100 as porcentaje FROM articles a JOIN authors au ON a.author_id = au.id WHERE strftime('%Y', date(a.added)) = ? group by semana ;"
 
-    var params = []
+    var params = [req.params.date1]
     db.all(sql, params, (err, row) => {
       console.log(row);
         if (err) {
@@ -400,14 +399,13 @@ app.get("/api/distribucion_semana_anio", (req, res, next) => {
 });
 
 
-
 /*  Consulta 20*/
-/*  porcentaje de mujeres al mes por periodico */
-/*  ejemplo: localhost:8000/api/distribucion_mes */
-app.get("/api/distribucion_mes", (req, res, next) => {
-    var sql= " select site, count (case when cast(strftime('%m', DATE(added))as INTEGER)=01 and authors.gender='F' then'1' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=01  then'0' end)*1.0*100 as Enero, count (case when cast(strftime('%m', DATE(added))as INTEGER)=02 and authors.gender='F' then'2' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=02  then'2' end)*1.0*100  as Febrero, count (case when cast(strftime('%m', DATE(added))as INTEGER)=03 and authors.gender='F' then'3' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=03  then'3' end)*1.0*100  as Marzo, count (case when cast(strftime('%m', DATE(added))as INTEGER)=04 and authors.gender='F' then'4' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=04  then'4' end)*1.0*100  as Abril, count (case when cast(strftime('%m', DATE(added))as INTEGER)=05 and authors.gender='F' then'5' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=05  then'5' end)*1.0*100  as Mayo, count (case when cast(strftime('%m', DATE(added))as INTEGER)=06 and authors.gender='F' then'6' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=06  then'6' end)*1.0*100  as Junio, count (case when cast(strftime('%m', DATE(added))as INTEGER)=07 and authors.gender='F' then'7' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=07  then'0' end)*1.0*100  as Julio, count (case when cast(strftime('%m', DATE(added))as INTEGER)=08 and authors.gender='F' then'8' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=08  then'0' end)*1.0*100  as Agosto, count (case when cast(strftime('%m', DATE(added))as INTEGER)=09 and authors.gender='F' then'9' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=09  then'0' end)*1.0*100  as Setiembre, count (case when cast(strftime('%m', DATE(added))as INTEGER)=10 and authors.gender='F' then'10' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=10  then'0' end)*1.0*100  as Octubre, count (case when cast(strftime('%m', DATE(added))as INTEGER)=11 and authors.gender='F' then'11' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=11  then'0' end)*1.0*100  as Noviembre, count (case when cast(strftime('%m', DATE(added))as INTEGER)=12 and authors.gender='F' then'12' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=12  then'0' end)*1.0*100  as Diciembre from Articles inner join authors on authors.id=articles.author_id group by site; "
+/*  porcentaje de mujeres al mes por periodico en un anio */
+/*  ejemplo: localhost:8000/api/distribucion_mes_anio/2018 */
+app.get("/api/distribucion_mes_anio/:date1", (req, res, next) => {
+    var sql= "select site, count (case when cast(strftime('%m', DATE(added))as INTEGER)=01 and authors.gender='F' then'1' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=01  then'0' end)*1.0*100 as Enero, count (case when cast(strftime('%m', DATE(added))as INTEGER)=02 and authors.gender='F' then'2' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=02  then'2' end)*1.0*100  as Febrero, count (case when cast(strftime('%m', DATE(added))as INTEGER)=03 and authors.gender='F' then'3' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=03  then'3' end)*1.0*100  as Marzo, count (case when cast(strftime('%m', DATE(added))as INTEGER)=04 and authors.gender='F' then'4' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=04  then'4' end)*1.0*100  as Abril, count (case when cast(strftime('%m', DATE(added))as INTEGER)=05 and authors.gender='F' then'5' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=05  then'5' end)*1.0*100  as Mayo, count (case when cast(strftime('%m', DATE(added))as INTEGER)=06 and authors.gender='F' then'6' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=06  then'6' end)*1.0*100  as Junio, count (case when cast(strftime('%m', DATE(added))as INTEGER)=07 and authors.gender='F' then'7' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=07  then'0' end)*1.0*100  as Julio, count (case when cast(strftime('%m', DATE(added))as INTEGER)=08 and authors.gender='F' then'8' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=08  then'0' end)*1.0*100  as Agosto, count (case when cast(strftime('%m', DATE(added))as INTEGER)=09 and authors.gender='F' then'9' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=09  then'0' end)*1.0*100  as Setiembre, count (case when cast(strftime('%m', DATE(added))as INTEGER)=10 and authors.gender='F' then'10' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=10  then'0' end)*1.0*100  as Octubre, count (case when cast(strftime('%m', DATE(added))as INTEGER)=11 and authors.gender='F' then'11' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=11  then'0' end)*1.0*100  as Noviembre, count (case when cast(strftime('%m', DATE(added))as INTEGER)=12 and authors.gender='F' then'12' end)*1.0/count (case when cast(strftime('%m', DATE(added))as)=12  then'0' end)*1.0*100  as Diciembre from Articles inner join authors on authors.id=articles.author_id where strftime('%Y', date(added)) = ? group by site;"
 
-    var params = []
+    var params = [req.params.date1]
     db.all(sql, params, (err, row) => {
       console.log(row);
         if (err) {
