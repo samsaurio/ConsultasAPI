@@ -60,7 +60,7 @@ Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019
 - Cantidad de dias sin articulos por mujeres  
   ``` https://apicolumnistos.tedic.net/api/dias_sin_mujeres  ```
   
-- Porcentaje de distribución por semana en un rango de una semana
+- Porcentaje de distribución por semana en un rango de fechas
   ``` https://apicolumnistos.tedic.net/api/distribucion_semana_rango/2020-05-04/2020-05-10    ```
   
 - Porcentaje de distribución por semana categorizado por medio  en un rango de fechas
