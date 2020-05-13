@@ -78,6 +78,9 @@ Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019
 - Total de años registrados en la base  
   ``` https://apicolumnistos.tedic.net/api/anios_disponibles      ```
 
+- Total de días registrados en la base  
+  ``` https://apicolumnistos.tedic.net/api/dias_disponibles      ```  
+  
 ## **Para replicar el API**
 
 ### **Instalación**
