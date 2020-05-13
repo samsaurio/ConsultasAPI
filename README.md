@@ -80,6 +80,9 @@ Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019
 
 - Total de días registrados en la base  
   ``` https://apicolumnistos.tedic.net/api/dias_disponibles      ```  
+
+- Dias sin mujeres por medio especifico
+  ``` https://apicolumnistos.tedic.net/api/dias_sin_mujeres_medio/{nombre del sitio}      ```  
   
 ## **Para replicar el API**
 
