@@ -474,6 +474,24 @@ app.get("/api/dias_disponibles", (req, res, next) => {
       });
 });
 
+/*  Consulta 24*/
+/*  dias sin mujeres en cada medio*/
+/*  ejemplo: http://localhost:8000/api/dias_sin_mujeres_medio/abc */
+app.get("/api/dias_sin_mujeres_medio/:medio", (req, res, next) => {
+    var sql = "select (select count(DISTINCT(date(a.added))) as dias_total from articles a where a.site = ?) - (select count(DISTINCT(date(a.added))) as dias_mujeres from articles a join authors au ON a.author_id = au.id where a.site = ? and au.gender = 'F') as dias_sin_mujeres"
+    var params = [req.params.medio, req.params.medio]
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
 // Default response for any other request
 app.use(function(req, res){
     res.status(404);
