@@ -438,6 +438,24 @@ app.get("/api/total_autores", (req, res, next) => {
       });
 });
 
+/*  Consulta 22*/
+/*  anios disponibles en la BD*/
+/*  ejemplo: http://localhost:8000/api/anios_disponibles */
+app.get("/api/anios_disponibles", (req, res, next) => {
+    var sql = "SELECT DISTINCT(strftime('%Y', date(added))) as anios from articles"
+    var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
 
 // Default response for any other request
 app.use(function(req, res){
