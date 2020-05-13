@@ -75,6 +75,9 @@ Nota: La fecha debe estar en formato AAAA-MM-DD. Ej: 23-05-2019
 - Total de autores en la base  
   ``` https://apicolumnistos.tedic.net/api/total_autores       ```
 
+- Total de años registrados en la base  
+  ``` https://apicolumnistos.tedic.net/api/anios_disponibles      ```
+
 ## **Para replicar el API**
 
 ### **Instalación**
