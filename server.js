@@ -456,6 +456,23 @@ app.get("/api/anios_disponibles", (req, res, next) => {
       });
 });
 
+/*  Consulta 23*/
+/*  dias disponibles en la BD*/
+/*  ejemplo: http://localhost:8000/api/dias_disponibles */
+app.get("/api/dias_disponibles", (req, res, next) => {
+    var sql = "select count(DISTINCT(date(added))) as dias_disponibles from articles "
+    var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
 
 // Default response for any other request
 app.use(function(req, res){
